@@ -2,6 +2,7 @@ package com.darkliself.weatherapp.screens
 
 import android.graphics.drawable.GradientDrawable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
@@ -39,9 +40,19 @@ fun MainScreen() {
 
         ) {
             Text("20C")
-            Divider(color = Color.Black, thickness = 2.dp, modifier = Modifier.rotate(90f))
-            Row() {
-                
+            // Divider(color = Color.Black, thickness = 2.dp, modifier = Modifier.rotate(90f).border(width = 20.dp, Color.Black))
+
+            Divider(
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(2.dp)
+            )
+            Row(
+                Modifier.fillMaxSize()
+            ) {
+                Text("Roaming")
+                Text("City Kharkov")
             }
         }
 
