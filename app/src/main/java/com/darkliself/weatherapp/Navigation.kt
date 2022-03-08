@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.darkliself.weatherapp.screens.LoadingScreen
+import com.darkliself.weatherapp.screens.MainScreen
 import com.darkliself.weatherapp.screens.PresentationScreen
 
 
@@ -13,12 +14,15 @@ import com.darkliself.weatherapp.screens.PresentationScreen
 fun Navigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.LoadingScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.LoadingScreen.route) {
             LoadingScreen(navController = navController)
         }
         composable(route = Screen.PresentationScreen.route) {
             PresentationScreen(navController)
+        }
+        composable(route = Screen.MainScreen.route) {
+            MainScreen()
         }
     }
 }
