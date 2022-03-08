@@ -9,6 +9,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
@@ -54,6 +56,16 @@ fun MainScreen() {
                 Text("Roaming")
                 Text("City Kharkov")
             }
+        }
+
+        Box(
+            Modifier
+                .fillMaxHeight(0.3f)
+                .fillMaxWidth(0.5f)
+                .background(Color.Black)
+                .align(BiasAlignment(0f, 0f))
+        ) {
+
         }
 
     }
