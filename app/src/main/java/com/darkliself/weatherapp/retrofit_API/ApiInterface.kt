@@ -13,6 +13,6 @@ interface ApiInterface {
 
     @Headers("X-Redmine-API-Key: 6735ebd44e9850ab188356ffba5cbb7cad8aa756")
     @GET("/")
-    fun getExpression(): Call<Data>
+    fun getExpression(): Call<String>
 
 }

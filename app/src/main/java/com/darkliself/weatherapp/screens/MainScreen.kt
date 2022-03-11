@@ -23,11 +23,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.darkliself.weatherapp.R
+import com.darkliself.weatherapp.retrofit_API.WeatherAPIInterface
+import com.darkliself.weatherapp.retrofit_API.WeatherNetworkService
 import org.intellij.lang.annotations.JdkConstants
 
 
 @Composable
 fun MainScreen() {
+    val z = WeatherNetworkService.getWeather("kharkov")
     Box(
         Modifier
             .fillMaxSize()
@@ -101,6 +104,7 @@ fun MainScreen() {
                 Text("Tuesday")
                 Text("02 January 2022")
                 Text("06 43 AM")
+                Text(text = z)
             }
         }
 

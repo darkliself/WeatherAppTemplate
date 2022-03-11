@@ -1,38 +1,68 @@
 package com.darkliself.weatherapp.retrofit_API
 
-import retrofit2.*
+import com.darkliself.weatherapp.weatherPOJO.MyWeather
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import retrofit2.http.GET
 
 
-fun main() {
-    // NetworkService.getMyData()
-    // NetworkService.getData("552139")
-    NetworkService.getExpression("552139/")
-
+fun main(args: Array<String>) {
+    WeatherNetworkService.getWeather("kharkov")
+    WeatherNetworkService.getJSONWeather("kharkov")
+    val t = listOf(1, 2, 3)
+    val z = t.let { it.reduce {a, b -> a - b} + 11} // { it -> it + 2 }
+    println(z)
 }
 
+object WeatherNetworkService {
+    private val BaseURL = "https://api.openweathermap.org/data/2.5/"
+    private val apiKey = "76bb42ac7cb89fc255ba962c7916dd20"
+    private val UNITS = "metric"
 
-object NetworkService {
-    private val BaseURL = "https://cnet.plan.io/issues/"
+    // private val city = "kharkiv"
 
-    fun getExpression(endPoint: String) {
+    fun getWeather(city: String): String {
+        var result = ""
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(ScalarsConverterFactory.create())
-            .baseUrl("$BaseURL$endPoint/")
+            .baseUrl(BaseURL)
             .build()
-            .create(ApiInterface::class.java)
-        val retrofitData = retrofitBuilder.getExpression()
+            .create(WeatherAPIInterface::class.java)
+        val retrofitData = retrofitBuilder.getWeather(city, apiKey)
         retrofitData.enqueue(object : Callback<String?> {
             override fun onResponse(call: Call<String?>, response: Response<String?>) {
+                if (response.isSuccessful) {
+                    println(response.body())
+                    result = response.body().toString()
+                }
+            }
 
+            override fun onFailure(call: Call<String?>, t: Throwable) {
+                println("its dead")
+                println(t.message)
+            }
+        })
+        return result
+    }
+
+    fun getJSONWeather(city: String) {
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BaseURL)
+            .build()
+            .create(WeatherAPIInterface::class.java)
+        val retrofitData = retrofitBuilder.getJSONWeather(city, UNITS, apiKey)
+        retrofitData.enqueue(object : Callback<MyWeather?> {
+            override fun onResponse(call: Call<MyWeather?>, response: Response<MyWeather?>) {
                 if (response.isSuccessful) {
                     println(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<String?>, t: Throwable) {
+            override fun onFailure(call: Call<MyWeather?>, t: Throwable) {
                 println("its dead")
                 println(t.message)
             }
