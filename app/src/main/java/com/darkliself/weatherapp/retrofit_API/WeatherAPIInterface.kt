@@ -2,9 +2,13 @@ package com.darkliself.weatherapp.retrofit_API
 
 import com.darkliself.weatherapp.hourlyPOJO.Forecast
 import com.darkliself.weatherapp.weatherPOJO.MyWeather
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
+import retrofit2.http.Url
+
 
 interface WeatherAPIInterface {
 
@@ -39,7 +43,7 @@ interface WeatherAPIInterface {
 
 
     @GET("onecall")
-    fun getStringForecast(
+    suspend fun getStringForecast(
         // @Query("q") q: String,
         // lat=50&lon=36.25
         @Query("lat") lat: Double,
@@ -51,4 +55,17 @@ interface WeatherAPIInterface {
         // @Query("units") units: String,
         @Query("appid") appid: String
     ): Call<String>
+
+    @POST("onecall")
+    fun getStringResponse(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        // metric|imperial|standard
+        @Query("units") units: String,
+        // values minutely|hourly|daily|current|alerts
+        // @Query("exclude") exclude: String = "",
+        // @Query("units") units: String,
+        @Query("appid") appid: String
+    ): Call<ResponseBody>
+
 }
