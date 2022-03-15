@@ -1,6 +1,9 @@
 package com.darkliself.weatherapp
 
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,8 +17,26 @@ import java.util.*
 
 @Composable
 fun Navigation() {
+    val materialBlue700= Color(0xFF1976D2)
+    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+    Scaffold(
+        scaffoldState = scaffoldState,
+//        topBar = { TopAppBar(title = {Text("TopAppBar")},backgroundColor = materialBlue700)  },
+ //       floatingActionButtonPosition = FabPosition.End,
+//        floatingActionButton = { FloatingActionButton(onClick = {}){
+//            Text("X")
+//        } },
+        drawerContent = { Text(text = "drawerContent") },
+        content = { NavigationScreens() },
+ //        bottomBar = { BottomAppBar(backgroundColor = materialBlue700) { Text("BottomAppBar") } }
+    )
+}
+
+
+@Composable
+fun NavigationScreens() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.LoadingScreen.route) {
         composable(route = Screen.LoadingScreen.route) {
             LoadingScreen(navController = navController)
         }

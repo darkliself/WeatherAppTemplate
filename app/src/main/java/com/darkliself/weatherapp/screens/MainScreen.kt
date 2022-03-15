@@ -31,6 +31,7 @@ import org.intellij.lang.annotations.JdkConstants
 @Composable
 fun MainScreen() {
     val z = WeatherNetworkService.getWeather("kharkov")
+    println(z)
     Box(
         Modifier
             .fillMaxSize()
